@@ -1,0 +1,32 @@
+             <!-- <div class="form-group">
+                <input class="form-control" type="text" name="headers" [(ngModel)]="api.headers" placeholder="Headers" required>
+              </div> -->
+              <div formArrayName="headers">
+                <div *ngFor="let header of addApiForm.controls.headers.controls; let i=index">
+                    <!-- show remove button when more than one header available -->
+                    <div>
+                        <span>Header {{i + 1}}</span>
+                        <span *ngIf="addApiForm.controls.headers.controls.length > 1" 
+                            (click)="removeHeader(i)">
+                        </span>
+                    </div>
+        
+                    <!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
+                    <div [formGroupName]="i">
+                        <!--key-->
+                        <div>
+                            <label>key</label>
+                            <input type="text" formControlName="key">
+                            <!--display error message if key is not valid-->
+                            <small [hidden]="myForm.controls.headers.controls[i].controls.key.valid">
+                                key is required
+                            </small>
+                        </div>
+                        <!--value-->
+                        <div>
+                            <label>value</label>
+                            <input type="text" formControlName="value">
+                        </div>
+                    </div>
+                  </div>
+              </div>    

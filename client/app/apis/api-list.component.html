@@ -1,0 +1,56 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+<app-toast [message]="toast.message"></app-toast>
+
+<div class="card" *ngIf="!isLoading">
+  <h4 class="card-header">Current apis ({{apis.length}})</h4>
+  
+  <div class="card-block">
+    <table class="table table-bordered table-striped">
+      <thead class="thead-default">
+        <tr>
+          <th>hostName</th>
+          <th>headers</th>
+          <th>path</th>
+          <th>method</th>
+          <th>data</th>
+          <th></th>
+        </tr>
+      </thead>
+      
+      <tbody *ngIf="apis.length === 0">
+        <tr>
+          <td colspan="6">There are no apis in the DB. Add a new api below.</td>
+        </tr>  
+      </tbody>
+
+      <tbody>
+    
+        <tr *ngFor="let api of apis; let i=index">  
+          <td *ngIf="!isEditing[i]">{{api.hostName}}</td>
+          <td *ngIf="!isEditing[i]">
+            <table>
+              <tr *ngFor="let header of api.headers">
+                <td>{{header.key}}</td>
+                <td>{{header.value}}</td>
+              </tr>
+           </table>
+          </td>
+          <td *ngIf="!isEditing[i]">{{api.path}}</td>
+          <td *ngIf="!isEditing[i]">{{api.method}}</td>
+          <td *ngIf="!isEditing[i]">{{api.data}}</td>
+          <td *ngIf="!isEditing[i]">
+            <button class="btn btn-sm btn-warning" (click)="enableEditing(i)"><i class="fa fa-pencil"></i> Edit</button> 
+            <button class="btn btn-sm btn-danger" (click)="deleteApi(api)"><i class="fa fa-trash"></i> Delete</button>
+          </td>
+
+          <td *ngIf="isEditing[i]" colspan="6">
+              <app-api-edit [api]="api" (onApiAdd)="onApiAdd($event)" (onApiUpdate)="onApiUpdate($event)" (onCancel)="cancelEditing($event)"></app-api-edit> 
+          </td>       
+        </tr> 
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<app-api-edit [api]="null" (onApiAdd)="onApiAdd($event)" (onApiUpdate)="onApiUpdate($event)" (onCancel)="cancelEditing($event)"></app-api-edit> 

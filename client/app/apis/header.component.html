@@ -1,0 +1,19 @@
+
+<!-- Angular assigns array index as group name by default 0, 1, 2, ... -->
+<div [formGroup]="headerForm">
+    <!--key-->
+    <div class="form-group col-xs-6">
+        <label>key</label>
+        <input type="text" class="form-control" formControlName="key">
+        <!--display error message if key is not valid-->
+        <small [hidden]="headerForm.controls.key.valid" class="text-danger">
+            key is required
+        </small>
+    </div>
+    <!--value-->
+    <div class="form-group col-xs-6">
+        <label>value</label>
+        <input type="text" class="form-control" formControlName="value">
+    </div>
+</div>
+

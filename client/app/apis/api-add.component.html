@@ -1,0 +1,40 @@
+<div class="card">
+  <h4 class="card-header">Add new Api</h4>
+  <div class="card-block">
+    <form [formGroup]="addApiForm" (ngSubmit)="addApi()" style="text-align:center">
+      <div class="form-group">
+        <input class="form-control" type="text" name="hostName" formControlName="hostName" placeholder="Host Name">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="path" formControlName="path" placeholder="Path">
+      </div>
+    
+      <div formArrayName="headers">
+        <div *ngFor="let header of addApiForm.controls.headers.controls; let i=index" class="panel panel-default">
+          <div>
+            <span>Header {{i + 1}}</span>
+            <span *ngIf="addApiForm.controls.headers.controls.length > 0" (click)="removeHeader(i)">Remove </span>
+          </div>
+          <div [formGroupName]="i">
+            <header [group]="addApiForm.controls.headers.controls[i]"></header>
+          </div>
+        </div>
+
+        <div class="margin-20">
+          <a (click)="addHeader()" style="cursor: default">
+            Add another header +
+          </a>
+        </div>          
+      </div>    
+ 
+
+      <div class="form-group">
+        <input class="form-control" type="text" name="method" formControlName="method" placeholder="Method">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="data" formControlName="data" placeholder="Data">
+      </div>
+      <button class="btn btn-primary" type="submit" [disabled]="!addApiForm.valid"><i class="fa fa-floppy-o"></i> Add</button>
+    </form>
+  </div>
+</div>

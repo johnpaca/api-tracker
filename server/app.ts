@@ -6,6 +6,7 @@ import * as mongoose from 'mongoose';
 import * as path from 'path';
 
 import setRoutes from './routes';
+import doWork from './work';
 
 const app = express();
 dotenv.load({ path: '.env' });
@@ -46,5 +47,7 @@ mongodb
   .catch((err) => {
     console.error(err);
 });
+
+doWork();
 
 export { app };
