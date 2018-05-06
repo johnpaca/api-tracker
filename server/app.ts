@@ -43,11 +43,12 @@ mongodb
       });
     }
 
+    doWork();
+
   })
   .catch((err) => {
     console.error(err);
 });
 
-doWork();
 
 export { app };

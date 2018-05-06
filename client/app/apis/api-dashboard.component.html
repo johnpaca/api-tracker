@@ -1,0 +1,37 @@
+<app-loading [condition]="isLoading"></app-loading>
+
+
+<div class="card" *ngIf="!isLoading">
+    <h4 class="card-header">Current Api Events ({{apiEvents.length}})</h4>
+    
+    <div class="card-block">
+      <table class="table table-bordered table-striped">
+        <thead class="thead-default">
+          <tr>
+            <th>Http Status</th>
+            <th>Response Time Milliseconds</th>
+            <th>Response Size</th>
+            <th>Date</th>
+            <th>Day of Week</th>
+            <th>Day of Month</th>
+            <th>Month</th>
+            <th>Year</th>           
+          </tr>
+        </thead>
+        
+        <tbody>
+      
+          <tr *ngFor="let apiEvent of apiEvents; let i=index">  
+            <td>{{apiEvent.httpStatus}}</td>
+            <td>{{apiEvent.responseTimeMilliseconds}}</td>
+            <td>{{apiEvent.responseSize}}</td>
+            <td>{{apiEvent.date}}</td>
+            <td>{{apiEvent.dayOfWeek}}</td>
+            <td>{{apiEvent.dayOfMonth}}</td>
+            <td>{{apiEvent.month}}</td>
+            <td>{{apiEvent.year}}</td>
+          </tr> 
+        </tbody>
+      </table>
+    </div>
+</div>

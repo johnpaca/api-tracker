@@ -1,6 +1,7 @@
 import * as express from 'express';
 
 import ApiCtrl from './controllers/api';
+import ApiEventCtrl from './controllers/apiEvent';
 import CatCtrl from './controllers/cat';
 import UserCtrl from './controllers/user';
 import Cat from './models/cat';
@@ -13,6 +14,7 @@ export default function setRoutes(app) {
   const apiCtrl = new ApiCtrl();
   const catCtrl = new CatCtrl();
   const userCtrl = new UserCtrl();
+  const apiEventCtrl = new ApiEventCtrl();
 
   // Cats
   router.route('/cats').get(catCtrl.getAll);
@@ -30,6 +32,14 @@ export default function setRoutes(app) {
   router.route('/api/:id').put(apiCtrl.update);
   router.route('/api/:id').delete(apiCtrl.delete);
   
+  // ApiEvents
+  router.route('/api-events').get(apiEventCtrl.getAll);
+  router.route('/api-events/count').get(apiEventCtrl.count);
+  router.route('/api-event').post(apiEventCtrl.insert);
+  router.route('/api-event/:id').get(apiEventCtrl.get);
+  router.route('/api-event/:id').put(apiEventCtrl.update);
+  router.route('/api-event/:id').delete(apiEventCtrl.delete);
+
   // Users
   router.route('/login').post(userCtrl.login);
   router.route('/users').get(userCtrl.getAll);

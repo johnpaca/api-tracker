@@ -36,9 +36,9 @@
               </tr>
            </table>
           </td>
-          <td *ngIf="!isEditing[i]">{{api.path}}</td>
+          <td *ngIf="!isEditing[i]">{{api.path | slice:0:20}}</td>
           <td *ngIf="!isEditing[i]">{{api.method}}</td>
-          <td *ngIf="!isEditing[i]">{{api.data}}</td>
+          <td *ngIf="!isEditing[i]">{{api.data | slice:0:20}}</td>
           <td *ngIf="!isEditing[i]">
             <button class="btn btn-sm btn-warning" (click)="enableEditing(i)"><i class="fa fa-pencil"></i> Edit</button> 
             <button class="btn btn-sm btn-danger" (click)="deleteApi(api)"><i class="fa fa-trash"></i> Delete</button>

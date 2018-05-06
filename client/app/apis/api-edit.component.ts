@@ -22,7 +22,7 @@ export class ApiEditComponent implements OnInit {
   data = new FormControl('', Validators.required);
   method = new FormControl('', Validators.required);
 
-  isNew: boolean = false;
+  isNew: boolean = true;
 
   constructor(private formBuilder: FormBuilder) { }
  
@@ -39,7 +39,10 @@ export class ApiEditComponent implements OnInit {
     
     if (!this.api) {
       this.api = new Api();
+      this.api.headers = new Array<Header>();
       this.isNew = true;
+    } else {
+      this.isNew = false;
     }
 
     // create a formArray for each header
