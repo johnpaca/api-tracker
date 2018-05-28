@@ -2,13 +2,18 @@
 
 
 <div class="card" *ngIf="!isLoading">
-    <h4 class="card-header">Current Api Events ({{apiEvents.length}})</h4>
-    
+    <h4 class="card-header">Current Api Events ({{apiData.length}})</h4>
+ 
     <div class="card-block">
-      <table class="table table-bordered table-striped">
+      <app-api-event-filter [filter]="filter" (onFilterChange)="onFilterChange($event)"></app-api-event-filter>
+    </div>
+
+    <div *ngIf="isDetailView" class="card-block">
+      <table class="table table-bordered table-striped"> 
         <thead class="thead-default">
           <tr>
             <th>Http Status</th>
+            <th>URL</th>
             <th>Response Time Milliseconds</th>
             <th>Response Size</th>
             <th>Date</th>
@@ -21,17 +26,44 @@
         
         <tbody>
       
-          <tr *ngFor="let apiEvent of apiEvents; let i=index">  
-            <td>{{apiEvent.httpStatus}}</td>
-            <td>{{apiEvent.responseTimeMilliseconds}}</td>
-            <td>{{apiEvent.responseSize}}</td>
-            <td>{{apiEvent.date}}</td>
-            <td>{{apiEvent.dayOfWeek}}</td>
-            <td>{{apiEvent.dayOfMonth}}</td>
-            <td>{{apiEvent.month}}</td>
-            <td>{{apiEvent.year}}</td>
+          <tr *ngFor="let apiItem of apiData; let i=index">  
+            <td>{{apiItem.httpStatus}}</td>
+            <td>{{apiItem.url}}</td>
+            <td>{{apiItem.responseTimeMilliseconds}}</td>
+            <td>{{apiItem.responseSize}}</td>
+            <td>{{apiItem.date}}</td>
+            <td>{{apiItem.dayOfWeek}}</td>
+            <td>{{apiItem.dayOfMonth}}</td>
+            <td>{{apiItem.month}}</td>
+            <td>{{apiItem.year}}</td>
           </tr> 
         </tbody>
       </table>
     </div>
+
+    <div *ngIf="isSummaryView" class="card-block">
+        <table class="table table-bordered table-striped"> 
+          <thead class="thead-default">
+            <tr>
+              <th>URL</th>
+              <th>Average Response Time Milliseconds</th>
+              <th>Count</th>
+              <th>Status</th>
+              <th>Percentage Error or Warn</th>
+            </tr>
+          </thead>
+          
+          <tbody>
+        
+            <tr *ngFor="let apiItem of apiData; let i=index">  
+              <td>{{apiItem.url}}</td>
+              <td>{{apiItem.averageResponseTimeMilliseconds}}</td>
+              <td>{{apiItem.count}}</td>
+              <td><app-api-status [status]="apiItem.status"></app-api-status></td>
+              <td>{{apiItem.percentageErrorWarn}}</td>
+            </tr> 
+          </tbody>
+        </table>
+      </div>
+      
 </div>

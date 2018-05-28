@@ -14,9 +14,9 @@ export class HeaderComponent {
     @Input('group')
     public headerForm: FormGroup;
 
-   
+
     ngOnInit() {
 
     }
-    
+
 }

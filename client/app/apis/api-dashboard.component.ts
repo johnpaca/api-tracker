@@ -3,6 +3,7 @@ import { Component, OnInit, ApplicationRef } from '@angular/core';
 import { ApiEventService } from '../services/apiEvent.service';
 import { ToastComponent } from '../shared/toast/toast.component';
 import { ApiEvent } from '../shared/models/apiEvent.model';
+import { Filter } from '../shared/models/filter.model';
 
 @Component({
   selector: 'app-api-dashboard',
@@ -11,35 +12,92 @@ import { ApiEvent } from '../shared/models/apiEvent.model';
 })
 export class ApiDashboardComponent implements OnInit {
 
-  apiEvents: ApiEvent[] = [];
   isLoading: boolean = true;
+  apiData: {}[] = [];
+  isSummaryView: boolean = true;
+  isDetailView: boolean = false;
+  startDate: Date;
+  endDate: Date;
+  filter: Filter = new Filter();
 
-  constructor(private apiEventService: ApiEventService) { }
+  constructor(private apiEventService: ApiEventService) { 
+    console.log('api dashboard constructor');
+  }
 
   ngOnInit() {
-    this.getApiEvents();
+    this.getApiEventSummary(1);
   }
   
-  getApiEvents() {
-    this.apiEventService.getApiEvents().subscribe(
+  onFilterChange(filter: Filter) {
+    this.isSummaryView = filter.level === 'Summary' ? true : false;
+    this.isDetailView = filter.level === 'Detail' ? true : false;
+    if (filter.level === 'Detail') {
+      this.getApiEventDetail(filter.timePeriod);
+    } else if (filter.level === 'Summary') {
+      this.getApiEventSummary(filter.timePeriod);  
+    }
+  }  
+
+  mapResponseToDetail(data) {
+    this.apiData.length = 0;
+    let i = 0;
+    data.forEach(element => {
+      this.apiData[i] = {};
+      this.apiData[i]['httpStatus'] = element.httpStatus;
+      this.apiData[i]['url'] = element.url;
+      this.apiData[i]['responseTimeMilliseconds'] = element.responseTimeMilliseconds;
+      this.apiData[i]['responseSize'] = element.responseSize;
+      this.apiData[i]['date'] = element.date;
+      this.apiData[i]['dayOfWeek'] = element.dayOfWeek;
+      this.apiData[i]['dayOfMonth'] = element.dayOfMonth;
+      this.apiData[i]['month'] = element.month;
+      this.apiData[i]['year'] = element.year;
+      i++;
+    });
+  }
+
+  mapResponseToSummary(data) {
+    this.apiData.length = 0;
+    let i = 0;
+    data.forEach(element => {
+      this.apiData[i] = {};
+      this.apiData[i]['url'] = element.url;
+      this.apiData[i]['averageResponseTimeMilliseconds'] = element.averageResponseTimeMilliseconds;
+      this.apiData[i]['percentageErrorWarn'] = element.percentageErrorWarn;
+      this.apiData[i]['status'] = [];
+      element.status.forEach(element2 => {
+        this.apiData[i]['status'] += element2;
+      });
+      this.apiData[i]['count'] = element.count;
+      i++;
+    });
+  }
+
+  setStartDateEndDate(timePeriod: number) {
+    this.endDate = new Date();
+    let numberOfHours = (1000 * 60 * 60) * timePeriod;
+    this.startDate = new Date(this.endDate.getTime() - numberOfHours);
+  }
+
+  getApiEventSummary(timePeriod: number) {
+    this.isLoading = true;
+    this.setStartDateEndDate(timePeriod);
+
+    this.apiEventService.getApiEventSummary(this.startDate, this.endDate).subscribe(
       data => {
+        this.mapResponseToSummary(data);
+      },
+      error => console.log(error),
+      () => this.isLoading = false
+    );
+  }  
 
-        let i = 0;
-        data.forEach(element => {
-
-          this.apiEvents[i] = new ApiEvent();
-          this.apiEvents[i]._id = element._id;
-          this.apiEvents[i].httpStatus = element.httpStatus;
-          this.apiEvents[i].responseTimeMilliseconds = element.responseTimeMilliseconds;
-          this.apiEvents[i].responseSize = element.responseSize;
-          this.apiEvents[i].date = element.date;
-          this.apiEvents[i].dayOfWeek = element.dayOfWeek;
-          this.apiEvents[i].dayOfMonth = element.dayOfMonth;
-          this.apiEvents[i].month = element.month;
-          this.apiEvents[i].year = element.year;
-
-          i++;
-        });
+  getApiEventDetail(timePeriod: number) {
+    this.isLoading = true;
+    this.setStartDateEndDate(timePeriod);
+    this.apiEventService.getApiEventDetail(this.startDate, this.endDate).subscribe(
+      data => {
+        this.mapResponseToDetail(data);
       },
       error => console.log(error),
       () => this.isLoading = false

@@ -47,7 +47,7 @@
           <input class="form-control" type="text" formControlName="method" [(ngModel)]="api.method" placeholder="Method" required>
         </div>
         <div class="form-group">
-          <textarea class="form-control" type="text" formControlName="data" [(ngModel)]="api.data" placeholder="Data" required></textarea>
+          <textarea class="form-control" type="text" formControlName="data" [(ngModel)]="api.data" placeholder="Data"></textarea>
         </div>
         <button class="btn btn-sm btn-primary" type="submit" [disabled]="!editApiForm.valid"><i class="fa fa-floppy-o"></i> Save</button>
     </form> 

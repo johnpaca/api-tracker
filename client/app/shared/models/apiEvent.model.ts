@@ -1,5 +1,6 @@
 export class ApiEvent {
     _id?: string;
+    url: string;
     httpStatus: number;
     responseTimeMilliseconds: number;
     responseSize: number;

@@ -1,7 +1,7 @@
 import * as mongoose from 'mongoose';
 
 const apiEventSchema = new mongoose.Schema({
-  _apiId: mongoose.Schema.Types.ObjectId,
+  url: String,
   httpStatus: Number,
   responseTimeMilliseconds: Number,
   responseSize: Number,

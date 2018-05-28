@@ -1,0 +1,24 @@
+<div [formGroup]="form">
+    <label [attr.for]="filter.key">{{filter.label}}</label>
+   
+    <div [ngSwitch]="filter.controlType">
+   
+      <input *ngSwitchCase="'textbox'" [formControlName]="filter.key"
+              [id]="filter.key" [type]="filter.type">
+    
+      <select [id]="filter.key" *ngSwitchCase="'dropdown'" [formControlName]="filter.key">
+        <option *ngFor="let opt of filter.options; let idx = index" [value]="opt.key">{{opt.value}}</option>
+      </select>
+   
+      <div *ngSwitchCase="'radio'" [id]="filter.key">
+        <label *ngFor="let opt of filter.options; let idx = index">
+            <input [formControlName]="filter.key"  [type]="filter.type" [checked]="idx === 0" [name]="filter.key" [value]="opt.value">
+            {{opt.value}}
+        </label>
+      </div>
+      
+    </div> 
+   
+    <div class="errorMessage" *ngIf="!isValid">{{filter.label}} is required</div>
+</div>
+  

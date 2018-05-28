@@ -33,7 +33,8 @@ export default function setRoutes(app) {
   router.route('/api/:id').delete(apiCtrl.delete);
   
   // ApiEvents
-  router.route('/api-events').get(apiEventCtrl.getAll);
+  router.route('/api-events/detail').get(apiEventCtrl.getAllDetail);
+  router.route('/api-events/summary').get(apiEventCtrl.getSummary);
   router.route('/api-events/count').get(apiEventCtrl.count);
   router.route('/api-event').post(apiEventCtrl.insert);
   router.route('/api-event/:id').get(apiEventCtrl.get);

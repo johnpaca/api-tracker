@@ -21,13 +21,13 @@ export class ApiAddComponent implements OnInit {
   addApiForm: FormGroup;
   hostName = new FormControl('', Validators.required);
   path = new FormControl('', Validators.required);
-  data = new FormControl('', Validators.required);
+  data = new FormControl('');
   method = new FormControl('', Validators.required);
 
 
   constructor(private apiService: ApiService,
-              private formBuilder: FormBuilder,
-              public toast: ToastComponent) { }
+    private formBuilder: FormBuilder,
+    public toast: ToastComponent) { }
 
 
   ngOnInit() {
@@ -43,11 +43,11 @@ export class ApiAddComponent implements OnInit {
   initHeader() {
     // initialize our header array
     return this.formBuilder.group({
-        key: ['', Validators.required],
-        value: ['']
+      key: ['', Validators.required],
+      value: ['']
     });
   }
-  
+
   addApi() {
     console.log('Adding api', this.addApiForm.value);
     this.onApiAdd.emit(this.createApiObject());
@@ -74,16 +74,16 @@ export class ApiAddComponent implements OnInit {
     return api;
   }
 
-  addHeader(){
-   
+  addHeader() {
+
     // add header to the list
     const control = <FormArray>this.addApiForm.controls['headers'];
-    control.push(this.initHeader());    
+    control.push(this.initHeader());
   }
 
   removeHeader(index: number) {
     const control = <FormArray>this.addApiForm.controls['headers'];
     control.removeAt(index);
-  }  
+  }
 
 }

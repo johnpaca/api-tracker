@@ -14,22 +14,23 @@ export default class ApiWorker {
         this.apiModel.find({}, (err, docs) => {
 
             docs.forEach(element => {
-                this.doApiRequest(element._id, element.hostName, element.headers, element.path, element.method, 
+                this.doApiRequest(element.hostName, element.headers, element.path, element.method, 
                     element.data, this.trackApiRequest);
             });
         });
     }
   
-    doApiRequest = (_id, hostName, headers, path, method, data, tracker) => {
+    doApiRequest = (hostName, headers, path, method, data, tracker) => {
 
-        console.log(`doRequest hostName: ${hostName} path: ${path}`);               
 
         let headerList = {};
         headers.forEach(element => {
             headerList[element.key] = element.value;
         });
 
-        headerList['Content-Length'] = Buffer.byteLength(data);
+        if (data) {
+            headerList['Content-Length'] = Buffer.byteLength(data);
+        }
 
         let options = {
             hostname: hostName,
@@ -38,6 +39,8 @@ export default class ApiWorker {
             method: method
         };
 
+        console.log(`doRequest hostName: ${hostName} path: ${path} options: ${JSON.stringify(options)}`);               
+        
         let start = Date.now();    
         let req = https.request(options, function(response){
             var str = '';
@@ -48,20 +51,18 @@ export default class ApiWorker {
                 console.log(`received ${str.length} bytes`);
                 var end = Date.now();
                 var elapsedTime = end - start;
-                tracker(_id, response.statusCode, str.length, elapsedTime);
+                tracker(hostName, path, response.statusCode, str.length, elapsedTime);
             });
         });
         req.write(data);
         req.end();       
     }
 
-    trackApiRequest = (_id, responseStatusCode, size, elapsedTime) => {
-
-        console.log(`Tracking response for Api id: ${_id} response status: ${responseStatusCode} response milliseconds: ${elapsedTime}`);
+    trackApiRequest = (hostName, path, responseStatusCode, size, elapsedTime) => {
 
         let eventDate = new Date();
         let apiEventData = {
-            _apiId: _id,
+            url: hostName + path,
             httpStatus: responseStatusCode,
             responseTimeMilliseconds: elapsedTime,
             responseSize: size,

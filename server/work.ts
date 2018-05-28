@@ -7,14 +7,7 @@ import * as hotelSearch from './workers/hotelSearch';
 
 export default function doWork() {
 
-    //Set up storage
-    //const storage = require('./server/work/store');
-
-    //Set up workers
-    //const workers = require('./server/work/worker');
-    //setInterval(hotelSearch.doSomeWork, 20000);
-
     let apiWorker = new ApiWorker();
-    setInterval(apiWorker.doWork, 20000);
+    setInterval(apiWorker.doWork, 60 * 1000);
 
 }

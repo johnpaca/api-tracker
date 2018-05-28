@@ -19,7 +19,7 @@ export class ApiEditComponent implements OnInit {
   editApiForm: FormGroup;
   hostName = new FormControl('', Validators.required);
   path = new FormControl('', Validators.required);
-  data = new FormControl('', Validators.required);
+  data = new FormControl('');
   method = new FormControl('', Validators.required);
 
   isNew: boolean = true;
@@ -82,6 +82,7 @@ export class ApiEditComponent implements OnInit {
   removeHeader(index: number) {
     const control = <FormArray>this.editApiForm.controls['headers'];
     control.removeAt(index);
+    this.api.headers.splice(index, 1);
   }  
   
 

@@ -14,6 +14,7 @@ import { ApiDashboardComponent } from './apis/api-dashboard.component';
 import { ApiAddComponent } from './apis/api-add.component';
 import { ApiEditComponent } from './apis/api-edit.component';
 import { ApiListComponent } from './apis/api-list.component';
+import { ApiEventFilterComponent } from './apis/api-event-filter.component';
 import { HeaderComponent } from './apis/header.component';
 import { CatsComponent } from './cats/cats.component';
 import { AboutComponent } from './about/about.component';
@@ -24,6 +25,10 @@ import { AccountComponent } from './account/account.component';
 import { AdminComponent } from './admin/admin.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
+import { DynamicFormComponent } from './filter/dynamic-form.component';
+import { DynamicFormFilterComponent } from './filter/dynamic-form-filter.component';
+import { ApiStatusComponent } from './apis/api-status.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +36,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     ApiAddComponent,
     ApiEditComponent,
     ApiListComponent,
+    ApiEventFilterComponent,
+    ApiStatusComponent,
     HeaderComponent,
     CatsComponent,
     AboutComponent,
@@ -39,7 +46,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     LogoutComponent,
     AccountComponent,
     AdminComponent,
-    NotFoundComponent,
+    DynamicFormComponent,
+    DynamicFormFilterComponent,
+    NotFoundComponent
   ],
   imports: [
     RoutingModule,
