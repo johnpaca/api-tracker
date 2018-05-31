@@ -1,0 +1,49 @@
+.label-style {
+    width: 100px;
+}
+
+.color-green {
+    background-color: green;
+}
+
+.color-yellow {
+    background-color: yellow;
+}
+
+.color-red {
+    background-color: red;
+}
+
+#art {
+    display: table;
+    border-spacing: 1px;
+    background-color: black;
+    border: 1px solid black;
+}
+
+.row {
+    display: table-cell;
+}
+
+.pixel-green {
+    display: table-cell;
+    background-color: green;
+    width: 15px;
+    height: 15px;
+}
+
+
+.pixel-red {
+    display: table-cell;
+    background-color: red;
+    width: 15px;
+    height: 15px;
+}
+
+
+.pixel-yellow {
+    display: table-cell;
+    background-color: yellow;
+    width: 15px;
+    height: 15px;
+}

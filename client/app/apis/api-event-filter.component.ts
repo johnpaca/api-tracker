@@ -15,10 +15,12 @@ export class ApiEventFilterComponent  {
   @Output() onFilterChange = new EventEmitter<Filter>();
   
   levels: string[] = ['Summary', 'Detail'];
-  timePeriods: string[] = ['Last Hour', 'Last 4 Hours', 'Last 8 Hours', 'Today'];
+  timePeriods: string[] = ['Last Hour', 'Last 4 Hours', 'Last 8 Hours', 'Last 24'];
+  timePeriodHours: number[] = [1,4,8,24];
 
   submitEventFilter(filter: Filter) {
-    this.filter.timePeriod = this.timePeriods.indexOf(this.filter.timePeriodString);
+    let idx = this.timePeriods.indexOf(this.filter.timePeriodString);    
+    this.filter.timePeriodHours = this.timePeriodHours[idx];
     console.log('Filter options: ', this.filter);
     this.onFilterChange.emit(this.filter);    
     

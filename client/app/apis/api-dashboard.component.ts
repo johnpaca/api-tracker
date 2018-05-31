@@ -32,9 +32,9 @@ export class ApiDashboardComponent implements OnInit {
     this.isSummaryView = filter.level === 'Summary' ? true : false;
     this.isDetailView = filter.level === 'Detail' ? true : false;
     if (filter.level === 'Detail') {
-      this.getApiEventDetail(filter.timePeriod);
+      this.getApiEventDetail(filter.timePeriodHours);
     } else if (filter.level === 'Summary') {
-      this.getApiEventSummary(filter.timePeriod);  
+      this.getApiEventSummary(filter.timePeriodHours);  
     }
   }  
 
@@ -48,10 +48,6 @@ export class ApiDashboardComponent implements OnInit {
       this.apiData[i]['responseTimeMilliseconds'] = element.responseTimeMilliseconds;
       this.apiData[i]['responseSize'] = element.responseSize;
       this.apiData[i]['date'] = element.date;
-      this.apiData[i]['dayOfWeek'] = element.dayOfWeek;
-      this.apiData[i]['dayOfMonth'] = element.dayOfMonth;
-      this.apiData[i]['month'] = element.month;
-      this.apiData[i]['year'] = element.year;
       i++;
     });
   }

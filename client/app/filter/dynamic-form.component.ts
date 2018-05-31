@@ -33,7 +33,7 @@ export class DynamicFormComponent implements OnInit {
   onSubmit() {
     this.payLoad = JSON.stringify(this.form.value);
     this.currentFilter.level = this.form.value.level;
-    this.currentFilter.timePeriod = this.form.value.time;
+    this.currentFilter.timePeriodHours = this.form.value.time;
     this.onFilterChange.emit(this.currentFilter);
     
   }

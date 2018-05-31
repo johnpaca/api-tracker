@@ -1,14 +1,18 @@
 <form (ngSubmit)="submitEventFilter(filter)" #eventFilterForm="ngForm">
 
-    <input type="radio" value="Summary" name="level" [(ngModel)]="filter.level" #level="ngModel" > Summary
-    <input type="radio" value="Detail" name="level" [(ngModel)]="filter.level" #level="ngModel"> Detail
-    <label for="timePeriods">Time Period</label>
-    <select class="form-control" id="timePeriods"
-            required
-            [(ngModel)]="filter.timePeriodString" name="timePeriodString"
-            #timePeriodString="ngModel">
-        <option *ngFor="let period of timePeriods" [value]="period">{{period}}</option>
-    </select>
+    <p>
+        <input type="radio" value="Summary" name="level" [(ngModel)]="filter.level" #level="ngModel" > Summary
+        <input type="radio" value="Detail" name="level" [(ngModel)]="filter.level" #level="ngModel"> Detail
+    </p>
+    <p>
+        <label for="timePeriods">Time Period</label>
+        <select class="form-control" id="timePeriods"
+                required
+                [(ngModel)]="filter.timePeriodString" name="timePeriodString"
+                #timePeriodString="ngModel">
+            <option *ngFor="let period of timePeriods" [value]="period">{{period}}</option>
+        </select>
+        </p>
 
     <button class="btn btn-sm btn-primary" type="submit" [disabled]="!eventFilterForm.valid"><i class="fa"></i>Apply</button>
 </form> 

@@ -1,1 +1,26 @@
-{{outputEmoji}}
+<ng-container *ngFor="let status of statusArray">
+    <span *ngIf="status === 'K'" class="color-green">&nbsp;</span>
+    <span *ngIf="status === 'W'" class="color-yellow">&nbsp;</span>
+    <span *ngIf="status === 'E'" class="color-red">&nbsp;</span>
+    <!-- <span id="art" *ngIf="status === 'K'" class="pixel-green"></span>
+    <span id="art" *ngIf="status === 'W'" class="pixel-yellow"></span>
+    <span id="art" *ngIf="status === 'E'" class="pixel-red"></span> -->
+    <!-- <ng-container *ngIf="status === 'K'">
+        <span id="art">
+            <span class="pixel-green"></span>
+        </span>
+    </ng-container>
+
+    <ng-container *ngIf="status === 'W'">
+        <div id="art">
+            <div class="pixel-yellow"></div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="status === 'E'">
+        <div class="row">
+            <div class="pixel-red"></div>
+        </div>
+    </ng-container> -->
+
+</ng-container>

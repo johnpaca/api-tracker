@@ -9,7 +9,7 @@ export class ApiStatusComponent implements OnInit, OnChanges {
 
   @Input('status') status: string;
 
-  outputEmoji: string;
+  statusArray: string[];
 
   ngOnInit() {
     console.log('ngOnInit:', this.status);
@@ -18,13 +18,9 @@ export class ApiStatusComponent implements OnInit, OnChanges {
   ngOnChanges() {
     console.log('ngOnChanges:', this.status);
 
-    this.outputEmoji = '';
+    this.statusArray = [];
     for (let i = 0; i < this.status.length; i++) 
-      if (this.status.charAt(i) === 'K') {
-        this.outputEmoji += '😀';
-      } else {
-        this.outputEmoji += '5';
-      }
+      this.statusArray[i] = this.status.charAt(i);
     }
 }
 

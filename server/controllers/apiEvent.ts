@@ -109,7 +109,7 @@ export default class ApiEventCtrl extends BaseCtrl {
                 if (element.httpStatus != 200) {
                     summaryObject.status[summaryObject.count-1] = "E"; 
                     summaryObject.countErrorWarn++;
-                } else if (element.averageResponseTimeMilliseconds > 3000) {
+                } else if (element.responseTimeMilliseconds > 500) {
                     summaryObject.status[summaryObject.count-1] = "W"; 
                     summaryObject.countErrorWarn++;
                 } else {
@@ -120,9 +120,9 @@ export default class ApiEventCtrl extends BaseCtrl {
 
             // compute average response time / percentage error or warn
             outputDocs.forEach(doc2 => {
-                doc2.averageResponseTimeMilliseconds = doc2.averageResponseTimeMilliseconds / 
-                    doc2.count;
-                doc2.percentageErrorWarn = doc2.countErrorWarn / doc2.count;
+                doc2.averageResponseTimeMilliseconds = Math.floor(doc2.averageResponseTimeMilliseconds / 
+                    doc2.count);
+                doc2.percentageErrorWarn = Math.floor(100 * (doc2.countErrorWarn / doc2.count));
             });
 
             //console.log(outputDocs);

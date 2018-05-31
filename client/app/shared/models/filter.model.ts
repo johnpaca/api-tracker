@@ -1,14 +1,14 @@
 export class Filter {
     public level: string;
     public timePeriodString: string;
-    public timePeriod: number;
+    public timePeriodHours: number;
 
     constructor() {
         this.level = 'Summary';
         this.timePeriodString = 'Last Hour';
-        this.timePeriod = 1;
+        this.timePeriodHours = 1;
     }
 
-    
+
 }
   
