@@ -16,6 +16,8 @@ export class ApiEditComponent implements OnInit {
   @Output('onApiUpdate') onApiUpdate = new EventEmitter<Api>();
   @Output('onCancel') onCancel = new EventEmitter<boolean>();
 
+  methods: string[] = ['GET', 'POST', 'PUT', 'PATCH'];
+
   editApiForm: FormGroup;
   hostName = new FormControl('', Validators.required);
   path = new FormControl('', Validators.required);
@@ -43,6 +45,7 @@ export class ApiEditComponent implements OnInit {
       this.isNew = true;
     } else {
       this.isNew = false;
+      this.method.setValue(this.api.method);
     }
 
     // create a formArray for each header
@@ -56,6 +59,7 @@ export class ApiEditComponent implements OnInit {
   }
 
   editAddApi(api: Api) {
+    api.method = this.method.value;
     this.isNew ? this.onApiAdd.emit(api) : this.onApiUpdate.emit(api);
   }
 

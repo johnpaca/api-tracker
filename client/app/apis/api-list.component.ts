@@ -155,6 +155,7 @@ export class ApiListComponent implements OnInit {
   }
 
   onApiUpdate(api: Api) {
+    console.log('onApiUpdate ', api)
     this.clearEditFlags();
     this.apiService.editApi(api).subscribe(
       () => {

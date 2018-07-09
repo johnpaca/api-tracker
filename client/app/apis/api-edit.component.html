@@ -12,6 +12,18 @@
           <input class="form-control" type="text" formControlName="path" [(ngModel)]="api.path" placeholder="Path" required>
         </div>
               
+        <!-- <div class="form-group">
+          <input class="form-control" type="text" formControlName="method" [(ngModel)]="api.method" placeholder="Method" required>
+        </div> -->
+
+        <div class="form-group">
+          <label class="center-block">Method
+            <select class="form-control" formControlName="method">
+              <option *ngFor="let method of methods" [value]="method">{{method}}</option>
+            </select>
+          </label>
+        </div>
+      
         <div formArrayName="headers">
           <div *ngFor="let header of editApiForm.controls.headers.controls; let i=index" class="panel panel-default">
             <div class="panel-heading">
@@ -43,9 +55,6 @@
           </div>          
         </div>    
 
-        <div class="form-group">
-          <input class="form-control" type="text" formControlName="method" [(ngModel)]="api.method" placeholder="Method" required>
-        </div>
         <div class="form-group">
           <textarea class="form-control" type="text" formControlName="data" [(ngModel)]="api.data" placeholder="Data"></textarea>
         </div>
