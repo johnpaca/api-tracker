@@ -39,23 +39,27 @@ export default class ApiWorker {
             method: method
         };
 
-        console.log(`doRequest hostName: ${hostName} path: ${path} options: ${JSON.stringify(options)}`);               
+        console.log(`doRequest hostName: ${hostName} path: ${path} options: ${JSON.stringify(options)} data: ${data}`);               
         
-        let start = Date.now();    
-        let req = https.request(options, function(response){
-            var str = '';
-            response.on('data', function (chunk) {
-                str += chunk;
+        try {
+            let start = Date.now();    
+            let req = https.request(options, function(response){
+                var str = '';
+                response.on('data', function (chunk) {
+                    str += chunk;
+                });
+                response.on('end', function () {
+                    console.log(`received ${str.length} bytes`);
+                    var end = Date.now();
+                    var elapsedTime = end - start;
+                    tracker(hostName, path, response.statusCode, str.length, elapsedTime);
+                });
             });
-            response.on('end', function () {
-                console.log(`received ${str.length} bytes`);
-                var end = Date.now();
-                var elapsedTime = end - start;
-                tracker(hostName, path, response.statusCode, str.length, elapsedTime);
-            });
-        });
-        req.write(data);
-        req.end();       
+            req.write(data);
+            req.end();
+        } catch (e) {
+            console.log('doRequest exception: ', e);               
+        }       
     }
 
     trackApiRequest = (hostName, path, responseStatusCode, size, elapsedTime) => {
