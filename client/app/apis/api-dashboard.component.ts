@@ -1,9 +1,7 @@
 import { Component, OnInit, ApplicationRef } from '@angular/core';
 
 import { ApiEventService } from '../services/apiEvent.service';
-import { ToastComponent } from '../shared/toast/toast.component';
-import { ApiEvent } from '../shared/models/apiEvent.model';
-import { Filter } from '../shared/models/filter.model';
+import { Filter, ReportLevel } from '../shared/models/filter.model';
 
 @Component({
   selector: 'app-api-dashboard',
@@ -29,11 +27,11 @@ export class ApiDashboardComponent implements OnInit {
   }
   
   onFilterChange(filter: Filter) {
-    this.isSummaryView = filter.level === 'Summary' ? true : false;
-    this.isDetailView = filter.level === 'Detail' ? true : false;
-    if (filter.level === 'Detail') {
+    this.isSummaryView = filter.level === ReportLevel.Summary ? true : false;
+    this.isDetailView = filter.level === ReportLevel.Detail ? true : false;
+    if (this.isDetailView) {
       this.getApiEventDetail(filter.timePeriodHours);
-    } else if (filter.level === 'Summary') {
+    } else if (this.isSummaryView) {
       this.getApiEventSummary(filter.timePeriodHours);  
     }
   }  

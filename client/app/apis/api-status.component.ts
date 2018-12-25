@@ -19,8 +19,10 @@ export class ApiStatusComponent implements OnInit, OnChanges {
     console.log('ngOnChanges:', this.status);
 
     this.statusArray = [];
-    for (let i = 0; i < this.status.length; i++) 
-      this.statusArray[i] = this.status.charAt(i);
+    if (this.status && this.status.length) {
+      for (let i = 0; i < this.status.length; i++) 
+        this.statusArray[i] = this.status.charAt(i);
     }
+  }
 }
 
