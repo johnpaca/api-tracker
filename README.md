@@ -72,11 +72,8 @@ Run `mongod` to run an instance of MongoDB, then run `npm run testbe` to execute
 ## Running TSLint
 Run `ng lint` (frontend) and `npm run lintbe` (backend) to execute the linter via [TSLint](https://palantir.github.io/tslint/).
 
-## Wiki
-To get more help about this project, [visit the official wiki](https://github.com/DavideViolante/Angular-Full-Stack/wiki).
-
 ## Further help
 To get more help on the `angular-cli` use `ng --help` or go check out the [Angular-CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
 
 ### Author
-* [Davide Violante](https://github.com/DavideViolante)
+* [John Paca](https://github.com/JohnPaca)
